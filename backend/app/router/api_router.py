@@ -1,8 +1,10 @@
 from fastapi import APIRouter
-from app.endpoints import manager
+from app.endpoints import customer, manager
 
 api_router = APIRouter()
 
-# Register manager endpoint with /manager prefix
-# This produces the endpoint http://127.0.0.1:8000/manager/login
+# Register manager endpoints with /manager prefix (/manager/login, /manager/items)
 api_router.include_router(manager.router, prefix="/manager", tags=["Manager"])
+
+# Register public customer endpoints (/items, /orders, /orders/{id})
+api_router.include_router(customer.router, tags=["Customer"])

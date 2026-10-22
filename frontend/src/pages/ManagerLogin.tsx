@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Lock,
   User,
@@ -12,12 +13,14 @@ import {
 } from 'lucide-react'
 
 export const ManagerLogin: React.FC = () => {
+  const navigate = useNavigate()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -50,8 +53,13 @@ export const ManagerLogin: React.FC = () => {
         throw new Error(data.detail || 'Invalid username or password.')
       }
 
-      setSuccessMessage(`Welcome back, ${data.username}! Login successful.`)
+      localStorage.setItem('manager_user', data.username)
+      setSuccessMessage(`Welcome back, ${data.username}! Entering Manager Portal...`)
+      setTimeout(() => {
+        navigate('/manager/items')
+      }, 500)
     } catch (err: unknown) {
+
       if (err instanceof Error) {
         setErrorMessage(err.message)
       } else {
@@ -63,7 +71,7 @@ export const ManagerLogin: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-radial-[at_50%_0%] from-slate-900 via-slate-950 to-black px-4 py-12 relative overflow-hidden text-slate-100">
+    <div className="min-h-screen w-full flex items-center justify-center bg-radial-[at_50%_0%] from-slate-900 via-slate-950 to-black px-3.5 sm:px-4 py-8 sm:py-12 relative overflow-hidden text-slate-100">
       {/* Background Decorative Glows */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-80 h-80 bg-orange-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -71,22 +79,23 @@ export const ManagerLogin: React.FC = () => {
       {/* Main Login Card */}
       <div className="w-full max-w-md relative z-10">
         {/* Restaurant Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-400 text-slate-950 shadow-xl shadow-amber-500/20 mb-4 ring-1 ring-amber-300/30">
-            <UtensilsCrossed className="w-8 h-8" />
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-400 text-slate-950 shadow-xl shadow-amber-500/20 mb-3 sm:mb-4 ring-1 ring-amber-300/30">
+            <UtensilsCrossed className="w-7 h-7 sm:w-8 sm:h-8" />
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-white">
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
             Manager Portal
           </h1>
-          <p className="text-sm text-slate-400 mt-2">
+          <p className="text-xs sm:text-sm text-slate-400 mt-1.5 sm:mt-2">
             Sign in to access your restaurant management console
           </p>
         </div>
 
         {/* Card Body */}
-        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-8 shadow-2xl shadow-black/80">
+        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-xl sm:rounded-2xl p-5 sm:p-8 shadow-2xl shadow-black/80">
           {/* Notification Alerts */}
           {errorMessage && (
+
             <div className="mb-6 p-4 rounded-xl bg-red-950/60 border border-red-800/60 text-red-200 text-sm flex items-start gap-3 animate-in fade-in duration-200">
               <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
               <div className="flex-1 font-medium">{errorMessage}</div>
@@ -200,17 +209,19 @@ export const ManagerLogin: React.FC = () => {
             </button>
           </form>
 
-          {/* Endpoint Footnote */}
-          <div className="mt-6 pt-5 border-t border-slate-800/80 text-center">
-            <p className="text-[11px] text-slate-500">
-              Target API:{' '}
-              <code className="text-amber-400/90 font-mono text-[11px] bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
-                http://127.0.0.1:8000/manager/login
-              </code>
-            </p>
+            {/* Customer Portal Link */}
+            <div className="pt-2 text-center">
+              <a
+                href="/"
+                className="text-xs text-slate-400 hover:text-amber-400 transition-colors inline-flex items-center gap-1 cursor-pointer"
+              >
+                ← Back to Customer Ordering Portal
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
   )
 }
+

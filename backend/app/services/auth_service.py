@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.database.models import Manager
+from app.database.models import Item, Manager, Order, OrderItem
 from app.database.session import Base, engine
 
 

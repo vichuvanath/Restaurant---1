@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class ManagerLoginRequest(BaseModel):
@@ -7,12 +7,6 @@ class ManagerLoginRequest(BaseModel):
 
     model_config = ConfigDict(
         str_strip_whitespace=True,
-        json_schema_extra={
-            "example": {
-                "username": "admin",
-                "password": "password123",
-            }
-        },
     )
 
 
@@ -20,3 +14,4 @@ class LoginResponse(BaseModel):
     status: str = "success"
     message: str = "Login successful"
     username: str
+    manager_id: int
