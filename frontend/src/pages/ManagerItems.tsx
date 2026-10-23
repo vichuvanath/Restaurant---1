@@ -16,6 +16,7 @@ import {
   Trash2,
   AlertTriangle,
 } from 'lucide-react'
+import { BACKEND_URL } from '../config/api'
 
 
 interface Item {
@@ -77,7 +78,7 @@ export const ManagerItems: React.FC = () => {
     setErrorMessage(null)
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/manager/items', {
+      const response = await fetch(`${BACKEND_URL}/manager/items`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -102,7 +103,7 @@ export const ManagerItems: React.FC = () => {
       if (err instanceof Error) {
         setErrorMessage(err.message)
       } else {
-        setErrorMessage('Failed to connect to backend server at http://127.0.0.1:8000.')
+        setErrorMessage(`Failed to connect to backend server at ${BACKEND_URL}.`)
       }
     } finally {
       setLoading(false)
@@ -120,7 +121,7 @@ export const ManagerItems: React.FC = () => {
     setTogglingId(item.id)
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/manager/items/${item.id}`, {
+      const response = await fetch(`${BACKEND_URL}/manager/items/${item.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -178,7 +179,7 @@ export const ManagerItems: React.FC = () => {
     setSubmittingCreate(true)
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/manager/items', {
+      const response = await fetch(`${BACKEND_URL}/manager/items`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -250,7 +251,7 @@ export const ManagerItems: React.FC = () => {
     setSubmittingEdit(true)
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/manager/items/${editingItem.id}`, {
+      const response = await fetch(`${BACKEND_URL}/manager/items/${editingItem.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -292,7 +293,7 @@ export const ManagerItems: React.FC = () => {
     setErrorMessage(null)
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/manager/items/${itemToDelete.id}`, {
+      const response = await fetch(`${BACKEND_URL}/manager/items/${itemToDelete.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

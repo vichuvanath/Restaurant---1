@@ -7,7 +7,6 @@ import {
   Minus,
   Trash2,
   X,
-  IndianRupee,
   Loader2,
   AlertCircle,
   CheckCircle2,
@@ -16,6 +15,7 @@ import {
   RefreshCw,
   ShoppingBag,
 } from 'lucide-react'
+import { BACKEND_URL } from '../config/api'
 
 interface Item {
   id: number
@@ -69,7 +69,7 @@ export const CustomerPortal: React.FC = () => {
     setErrorMessage(null)
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/items')
+      const response = await fetch(`${BACKEND_URL}/items`)
       if (!response.ok) {
         throw new Error('Failed to load menu items from restaurant database.')
       }
@@ -80,7 +80,7 @@ export const CustomerPortal: React.FC = () => {
       if (err instanceof Error) {
         setErrorMessage(err.message)
       } else {
-        setErrorMessage('Failed to connect to restaurant server at http://127.0.0.1:8000.')
+        setErrorMessage(`Failed to connect to restaurant server at ${BACKEND_URL}.`)
       }
     } finally {
       setLoading(false)
@@ -141,7 +141,7 @@ export const CustomerPortal: React.FC = () => {
         })),
       }
 
-      const response = await fetch('http://127.0.0.1:8000/orders', {
+      const response = await fetch(`${BACKEND_URL}/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

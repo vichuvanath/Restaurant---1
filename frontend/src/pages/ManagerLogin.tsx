@@ -9,8 +9,8 @@ import {
   AlertCircle,
   CheckCircle2,
   Loader2,
-  ShieldCheck,
 } from 'lucide-react'
+import { BACKEND_URL } from '../config/api'
 
 export const ManagerLogin: React.FC = () => {
   const navigate = useNavigate()
@@ -35,8 +35,8 @@ export const ManagerLogin: React.FC = () => {
     setLoading(true)
 
     try {
-      // Direct call to FastAPI backend endpoint http://127.0.0.1:8000/manager/login
-      const response = await fetch('http://127.0.0.1:8000/manager/login', {
+      // Direct call to FastAPI backend endpoint
+      const response = await fetch(`${BACKEND_URL}/manager/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ export const ManagerLogin: React.FC = () => {
       if (err instanceof Error) {
         setErrorMessage(err.message)
       } else {
-        setErrorMessage('Failed to connect to backend server at http://127.0.0.1:8000.')
+        setErrorMessage(`Failed to connect to backend server at ${BACKEND_URL}.`)
       }
     } finally {
       setLoading(false)
@@ -186,7 +186,7 @@ export const ManagerLogin: React.FC = () => {
                 />
                 <span>Remember this terminal</span>
               </label>
-              
+
             </div>
 
             {/* Submit Button */}
@@ -206,19 +206,19 @@ export const ManagerLogin: React.FC = () => {
             </button>
           </form>
 
-            {/* Customer Portal Link */}
-            <div className="pt-2 text-center">
-              <a
-                href="/"
-                className="text-xs text-slate-400 hover:text-amber-400 transition-colors inline-flex items-center gap-1 cursor-pointer"
-              >
-                ← Back to Customer Ordering Portal
-              </a>
-            </div>
+          {/* Customer Portal Link */}
+          <div className="pt-2 text-center">
+            <a
+              href="/"
+              className="text-xs text-slate-400 hover:text-amber-400 transition-colors inline-flex items-center gap-1 cursor-pointer"
+            >
+              ← Back to Customer Ordering Portal
+            </a>
           </div>
         </div>
       </div>
-   
+    </div>
+
   )
 }
 
