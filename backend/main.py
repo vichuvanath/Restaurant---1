@@ -21,6 +21,7 @@ app = FastAPI(
 )
 
 origins = [
+    "https://restaurant-site-l64n.onrender.com",
     "https://restaurant-1-c1qn.onrender.com",
     "https://restaurant-1-c1qn.onrender.com/",
     "http://localhost:5173",
