@@ -186,10 +186,7 @@ export const ManagerLogin: React.FC = () => {
                 />
                 <span>Remember this terminal</span>
               </label>
-              <span className="flex items-center gap-1 text-slate-500 text-[11px]">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-                Neon DB Verified
-              </span>
+              
             </div>
 
             {/* Submit Button */}
@@ -221,7 +218,7 @@ export const ManagerLogin: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+   
   )
 }
 
